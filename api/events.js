@@ -78,7 +78,8 @@ async function createEvent(req, res, pool) {
       pages_printed, swag_type, signage_category,
       total_co2e_kg, per_attendee_co2e_kg,
       travel_co2_kg, energy_co2_kg, catering_co2_kg, waste_co2_kg, materials_co2_kg,
-      rating, what_worked_well, what_to_improve
+      rating, what_worked_well, what_to_improve,
+      submitter_name, submitter_email
     ) VALUES (
       $1,$2,$3,$4,$5,$6,$7,
       $8,$9,$10,$11,$12,$13,$14,$15,
@@ -87,7 +88,8 @@ async function createEvent(req, res, pool) {
       $24,$25,$26,$27,$28,$29,
       $30,$31,$32,
       $33,$34,$35,$36,$37,$38,$39,
-      $40,$41,$42
+      $40,$41,$42,
+      $43,$44
     ) RETURNING *`,
     [
       d.event_name, d.event_date || null, d.city || null, d.organizer || null,
@@ -106,6 +108,7 @@ async function createEvent(req, res, pool) {
       d.travel_co2_kg ?? null, d.energy_co2_kg ?? null, d.catering_co2_kg ?? null,
       d.waste_co2_kg ?? null, d.materials_co2_kg ?? null,
       d.rating || null, d.what_worked_well || null, d.what_to_improve || null,
+      d.submitter_name || null, d.submitter_email || null,
     ]
   );
 
